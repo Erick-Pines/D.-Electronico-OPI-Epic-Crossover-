@@ -10,10 +10,10 @@ dy=[-1, 0, 1, 0]
 colors = [
     # Definir el rango de colores en HSV (Matiz, Saturacion, Luminosidad)
     (np.array([45, 45, 40]),    np.array([90, 150, 245])),  # 0 = Verde
-    (np.array([0, 120, 0]),     np.array([5, 255, 150])),   # 1 = Rojo
-    (np.array([25, 70, 150]),   np.array([45, 140, 200])),  # 2 = Amarillo
-    (np.array([90, 70, 150]),   np.array([120, 200, 210])), # 3 = Azul
-    (np.array([10, 100, 50]),    np.array([25, 200, 180]))  # 4 = Naranja  
+    (np.array([173, 0, 148]),   np.array([255, 255, 255])), # 1 = Rojo
+    (np.array([20, 22, 105]),   np.array([40, 115, 255])),  # 2 = Amarillo
+    (np.array([100, 35, 91]),   np.array([115, 255, 255])), # 3 = Azul
+    (np.array([10, 0, 59]),     np.array([17, 255, 175]))   # 4 = Naranja  
 ]
 n = input()
 lower = colors[n][0]
@@ -23,7 +23,7 @@ upper = colors[n][1]
 
 
 def contar(mask,x,y):
-    if x<0 or y<0 or x==width or y==height :
+    if x<0 or y<0 or x>=width or y>=height :
         return 0
     if mask[y][x] == 0:
         return 0
