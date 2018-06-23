@@ -19,7 +19,7 @@ while True:
     hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV) 
     
     mask = 0
-    for i in xrange(0,5):
+    for i in range(5):
         # Hacer una mascara con solo los pixeles dentro del rango de cada color
         current = cv2.inRange(hsv, colors[i][0], colors[i][1])
         kernal = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
@@ -34,6 +34,7 @@ while True:
     # Imprimir video y mascara
     cv2.imshow('frame',frame) #Original
     cv2.imshow('mask',color) #Color
+    #print(mask[479][639])
 
     k = cv2.waitKey(5) & 0xFF
     if k == 27:

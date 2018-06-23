@@ -15,12 +15,14 @@ colors = [
     (np.array([10, 0, 59]),     np.array([17, 255, 175])),  # 4 = Naranja
     (np.array([0, 0, 143]),     np.array([190, 10, 255]))   # 5 = Blanco  
 ]
+seccion_y1 = 203
+seccion_y2 = 230
 seccion = [
-    (211, 117, 238, 172),   # 0 = Verde
-    (211, 173, 238, 228),   # 1 = Rojo
-    (211, 231, 238, 286),   # 2 = Amarillo
-    (211, 288, 238, 347),   # 3 = Azul
-    (211, 352, 238, 404),   # 4 = Naranja
+    (seccion_y1, 117, seccion_y2, 172),   # 0 = Verde
+    (seccion_y1, 173, seccion_y2, 228),   # 1 = Rojo
+    (seccion_y1, 231, seccion_y2, 286),   # 2 = Amarillo
+    (seccion_y1, 288, seccion_y2, 347),   # 3 = Azul
+    (seccion_y1, 352, seccion_y2, 404),   # 4 = Naranja
 ]
 
 #cap = cv2.VideoCapture(0)
@@ -34,7 +36,7 @@ while True:
     hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)   
 
     mask = 0
-    for i in xrange(0,5):
+    for i in range(5):
         # Hacer una mascara con solo los pixeles dentro del rango de cada color
         current = cv2.inRange(hsv, colors[i][0], colors[i][1])
         kernal = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
@@ -46,11 +48,10 @@ while True:
             x = seccion[i][1]
             while x <= seccion[i][3]:
                 if current[y][x]:
-                    boton[i]=1
-                    break
+                    boton[i]+=1
                 x+=1
             y+=1
-
+        cv2.rectangle(frame, (seccion[i][1], seccion[i][0]), (seccion[i][3], seccion[i][2]), (255, 255, 255), 2)
         # Unirla con las mascaras anteriores
         mask += current
 

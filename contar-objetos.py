@@ -16,7 +16,7 @@ colors = [
     (np.array([10, 0, 59]),     np.array([17, 255, 175])),  # 4 = Naranja
     (np.array([0, 0, 143]),     np.array([190, 10, 255]))   # 5 = Blanco  
 ]
-n = input()
+n = int(input())
 lower = colors[n][0]
 upper = colors[n][1]
 
@@ -29,7 +29,7 @@ def contar(mask,x,y):
         return 0
     visited[y][x]=1
     c=1
-    for i in xrange(0,4):
+    for i in range(4):
         c+=contar(mask, x+dx[i], y+dy[i]) # Visitar pixeles adyacentes ^ > v <
     return c # Regresar cantidad de pixeles blancos
 
@@ -57,12 +57,29 @@ while True:
     cv2.imshow('final',mask) #Color
 
     # Barrido en la mascara
-    for i in xrange(0,height):
-        for j in xrange(0,width):
+    for i in range(height):
+        for j in range(width):
             if mask[i][j] and visited[i][j]==0 :
                 n+=contar(mask,j,i) # Llamar busqueda en profundidad
                 c+=1 # Contar objetos del color
 
+    """
+    x1 = 1000
+    y1 = 1000
+    x2 = 0
+    y2 = 0
+    for i in xrange(0,height):
+        for j in xrange(0,width):
+            if mask[i][j] and visited[i][j]==0 :
+                if i < y1:
+                    y1 = i
+                if j < x1:
+                    x1 = j
+                if i > y2:
+                    y2 = i
+                if j > x2:
+                    x2 = j
+    """
     print(n, c)
     visited = np.zeros((height, width), dtype=bool) #Inicializar arreglo de visitados
 

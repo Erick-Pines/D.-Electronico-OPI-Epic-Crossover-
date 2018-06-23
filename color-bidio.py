@@ -9,7 +9,7 @@ colors = [
     (np.array([90, 70, 150]),   np.array([120, 200, 210])), # 3 = Azul
     (np.array([10, 100, 50]),    np.array([25, 200, 180]))  # 4 = Naranja  
 ]
-x = input()
+x = int(input())
 lower = colors[x][0]
 upper = colors[x][1]
 

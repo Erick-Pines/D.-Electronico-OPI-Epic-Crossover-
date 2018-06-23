@@ -7,7 +7,7 @@ import time
 def nothing(*arg):
         pass
  
-i = input()
+i = int(input())
 
 high_val = 230
 low_val = 40
@@ -33,14 +33,12 @@ cv2.createTrackbar('highHue', 'colorTest', colors[i][3], 255, nothing)
 cv2.createTrackbar('highSat', 'colorTest', colors[i][4], 255, nothing)
 cv2.createTrackbar('highVal', 'colorTest', colors[i][5], 255, nothing)
  
-# Raspberry pi file path example.
-#frame = cv2.imread('/home/pi/python3/opencv/color-test/colour-circles-test.jpg')
-# Windows file path example.
-cap = cv2.VideoCapture(0)
+frame = cv2.imread('img/guitar-hero.jpg')
+#cap = cv2.VideoCapture(0)
 
 while True:
     # Get HSV values from the GUI sliders.
-    _, frame = cap.read()
+    #_, frame = cap.read()
     
     lowHue = cv2.getTrackbarPos('lowHue', 'colorTest')
     lowSat = cv2.getTrackbarPos('lowSat', 'colorTest')
