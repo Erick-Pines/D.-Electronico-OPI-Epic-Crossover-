@@ -18,16 +18,17 @@ colors = [
     (np.array([20, 22, 105]),   np.array([40, 115, 255])),  # 2 = Amarillo
     (np.array([100, 35, 91]),   np.array([115, 255, 255])), # 3 = Azul
     (np.array([10, 0, 59]),     np.array([17, 255, 175])),  # 4 = Naranja
-    (np.array([0, 0, 143]),     np.array([190, 10, 255]))   # 5 = Blanco  
+    (np.array([0, 0, 143]),     np.array([190, 10, 255])),  # 5 = Blanco  
+    (np.array([10, 0, 140]),    np.array([245, 255, 255]))  # 6 = No negro
 ]
 seccion_y1 = 203
 seccion_y2 = 230
 seccion = [
-    (seccion_y1, 117, seccion_y2, 172),   # 0 = Verde
+    (seccion_y1, 130, seccion_y2, 172),   # 117 0 = Verde
     (seccion_y1, 173, seccion_y2, 228),   # 1 = Rojo
     (seccion_y1, 231, seccion_y2, 286),   # 2 = Amarillo
     (seccion_y1, 288, seccion_y2, 347),   # 3 = Azul
-    (seccion_y1, 352, seccion_y2, 404),   # 4 = Naranja
+    (seccion_y1, 348, seccion_y2, 390),   # 404 4 = Naranja
 ]
 
 cap = cv2.VideoCapture(0)
@@ -43,7 +44,7 @@ while True:
     mask = 0
     for i in range(5):
         # Hacer una mascara con solo los pixeles dentro del rango de cada color
-        current = cv2.inRange(hsv, colors[i][0], colors[i][1])
+        current = cv2.inRange(hsv, colors[6][0], colors[6][1])
         kernal = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
         current = cv2.morphologyEx(current, cv2.MORPH_CLOSE, kernal)
         current = cv2.morphologyEx(current, cv2.MORPH_OPEN, kernal)
@@ -60,6 +61,8 @@ while True:
         # Unirla con las mascaras anteriores
         mask += current
 
+    for i in range(5):
+        cv2.rectangle(mask, (seccion[i][1], seccion[i][0]), (seccion[i][3], seccion[i][2]), (255, 255, 255), 2)
     # Dejar la mascara con los colores originales
     final = cv2.bitwise_and(frame,frame, mask= mask)
     # Imprimir video y mascara
@@ -86,7 +89,7 @@ while True:
     coding = 0
 
     for i in range(5):
-        if boton[i]>=200:
+        if boton[i]>=300:
             #boton[i]=1
             coding += math.pow(2, i)
         #else:
@@ -97,7 +100,7 @@ while True:
     print(coding)
 
     arduino.write(bytes([coding]))
-    #time.sleep(.1)
+    time.sleep(.01)
 
     boton = [0, 0, 0, 0, 0]
     k = cv2.waitKey(5) & 0xFF
