@@ -7,8 +7,8 @@ import math
 arduino = serial.Serial("COM3", 9600)
 time.sleep(2)
 
-height = 286 #480
-width = 468 #640
+height = 480 #286
+width = 640 #468
 boton = [0, 0, 0, 0, 0]
 
 colors = [
@@ -68,7 +68,7 @@ while True:
     # Imprimir video y mascara
     
     cv2.imshow('frame',frame) #Original
-    cv2.imshow('final',mask) #Color
+    cv2.imshow('mask',mask) #Color
     """
     x1 = 1000
     y1 = 1000
@@ -100,7 +100,7 @@ while True:
     print(coding)
 
     arduino.write(bytes([coding]))
-    time.sleep(.01)
+    #time.sleep(.01)
 
     boton = [0, 0, 0, 0, 0]
     k = cv2.waitKey(5) & 0xFF
